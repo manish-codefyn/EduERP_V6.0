@@ -1,0 +1,41 @@
+<li>
+    <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon"><i class="bx bx-book"></i></div>
+        <div class="menu-title">Academics</div>
+    </a>
+    <ul>
+        <!-- Dashboard -->
+        <li><a href="{% url 'academics:teacher-dashboard' %}"><i class='bx bx-radio-circle'></i>Dashboard</a></li>
+        
+        <!-- Teacher/Staff Menu -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class='bx bx-radio-circle'></i>Staff</a>
+            <ul>
+                <li><a href="{% url 'academics:schedule' %}">Schedule</a></li>
+                <li><a href="{% url 'academics:attendance' %}">Attendance</a></li>
+                <li><a href="{% url 'academics:grading' %}">Grading</a></li>
+                <li><a href="{% url 'academics:assignments' %}">Assignments</a></li>
+            </ul>
+        </li>
+        
+        <!-- Student Menu -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class='bx bx-radio-circle'></i>Student</a>
+            <ul>
+                <li><a href="{% url 'academics:my_courses' %}">My Courses</a></li>
+                <li><a href="{% url 'academics:my_grades' %}">My Grades</a></li>
+                <li><a href="{% url 'academics:my_attendance' %}">My Attendance</a></li>
+                <li><a href="{% url 'academics:my_assignments' %}">My Assignments</a></li>
+            </ul>
+        </li>
+        
+        <!-- Shared Resources -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class='bx bx-radio-circle'></i>Resources</a>
+            <ul>
+                <li><a href="{% url 'academics:timetable' %}">Timetable</a></li>
+                <!-- Add more shared resources here if needed -->
+            </ul>
+        </li>
+    </ul>
+</li>

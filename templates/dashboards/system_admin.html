@@ -1,0 +1,184 @@
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+
+        <!-- Welcome Banner -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="mb-1">Welcome back, {{ user.get_full_name }}!</h4>
+                                <p class="mb-0">System Administration Dashboard</p>
+                            </div>
+                            <div class="ms-auto">
+                                <i class="bx bx-server font-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Total Users</p>
+                                <h4 class="my-1 text-info">{{ total_users }}</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
+                                <i class='bx bxs-group'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-danger">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Total Tenants</p>
+                                <h4 class="my-1 text-danger">{{ total_tenants }}</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
+                                <i class='bx bxs-buildings'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-success">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Active Tenants</p>
+                                <h4 class="my-1 text-success">{{ active_tenants }}</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                                <i class='bx bxs-check-circle'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-warning">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">System Load</p>
+                                <h4 class="my-1 text-warning">{{ system_stats.cpu_usage }}%</h4>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
+                                <i class='bx bxs-bar-chart-alt-2'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h6 class="mb-0 text-uppercase">Quick Actions</h6>
+        <hr/>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            {% for action in quick_actions %}
+            <div class="col">
+                <a href="{{ action.url }}" class="text-decoration-none">
+                    <div class="card radius-10">
+                        <div class="card-body text-center">
+                            <div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3">
+                                <i class='bx bx-{{ action.icon }}'></i>
+                            </div>
+                            <h5 class="my-3">{{ action.name }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- System Health -->
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="card radius-10">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">System Health</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div>
+                                <p class="mb-0">CPU Usage</p>
+                            </div>
+                            <div class="ms-auto">
+                                <p class="mb-0 fw-bold">{{ system_stats.cpu_usage }}%</p>
+                            </div>
+                        </div>
+                        <div class="progress mb-3" style="height: 7px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ system_stats.cpu_usage }}%"></div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mb-3">
+                            <div>
+                                <p class="mb-0">Memory Usage</p>
+                            </div>
+                            <div class="ms-auto">
+                                <p class="mb-0 fw-bold">{{ system_stats.memory_usage }}%</p>
+                            </div>
+                        </div>
+                        <div class="progress mb-3" style="height: 7px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ system_stats.memory_usage }}%"></div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mb-3">
+                            <div>
+                                <p class="mb-0">Disk Usage</p>
+                            </div>
+                            <div class="ms-auto">
+                                <p class="mb-0 fw-bold">{{ system_stats.disk_usage }}%</p>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 7px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ system_stats.disk_usage }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card radius-10">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">Active Sessions</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container-2">
+                            <!-- Placeholder for chart -->
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <h2 class="text-primary">{{ system_stats.active_sessions }}</h2>
+                                <span class="ms-2">Users Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block title %}Invoices{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">Invoices</h5>
+            <a href="{% url 'finance:invoice_create' %}" class="btn btn-primary btn-sm"><i class="bx bx-plus"></i> Add New</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table id="invoiceTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Student</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Total Amount</th>
+                        <th>Due Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in invoices %}
+                    <tr>
+                        <td><code>{{ invoice.invoice_number }}</code></td>
+                        <td>{{ invoice.student.full_name }}</td>
+                        <td>{{ invoice.issue_date|date:"M d, Y" }}</td>
+                        <td>{{ invoice.due_date|date:"M d, Y" }}</td>
+                        <td>₹{{ invoice.total_amount|floatformat:2 }}</td>
+                        <td>₹{{ invoice.due_amount|floatformat:2 }}</td>
+                        <td>
+                            {% if invoice.status == 'PAID' %}<span class="badge bg-success">{{ invoice.get_status_display }}</span>
+                            {% elif invoice.status == 'OVERDUE' %}<span class="badge bg-danger">{{ invoice.get_status_display }}</span>
+                            {% elif invoice.status == 'PARTIALLY_PAID' %}<span class="badge bg-warning">{{ invoice.get_status_display }}</span>
+                            {% else %}<span class="badge bg-info">{{ invoice.get_status_display }}</span>{% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex order-actions">
+                                <a href="{% url 'finance:invoice_detail' invoice.pk %}" class="ms-3" title="View"><i class="bx bxs-show"></i></a>
+                                <a href="{% url 'finance:invoice_update' invoice.pk %}" class="ms-3" title="Edit"><i class="bx bxs-edit"></i></a>
+                                <a href="{% url 'finance:invoice_delete' invoice.pk %}" class="ms-3 text-danger" title="Delete"><i class="bx bxs-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var table = $('#invoiceTable').DataTable({
+            lengthChange: false,
+            buttons: [ 'copy', 'excel', 'pdf', 'print']
+        });
+        table.buttons().container().appendTo( '#invoiceTable_wrapper .col-md-6:eq(0)' );
+    });
+</script>
+{% endblock %}

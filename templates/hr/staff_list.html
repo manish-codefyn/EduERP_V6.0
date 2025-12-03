@@ -1,0 +1,65 @@
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block title %}Staff{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0">Staff Members</h5>
+            <a href="{% url 'hr:staff_create' %}" class="btn btn-primary btn-sm"><i class="bx bx-plus"></i> Add New</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table id="staffTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Employment Type</th>
+                        <th>Status</th>
+                        <th>Joining Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for staff in staff_members %}
+                    <tr>
+                        <td><code>{{ staff.employee_id }}</code></td>
+                        <td>{{ staff.user.get_full_name }}</td>
+                        <td>{{ staff.user.email }}</td>
+                        <td>{{ staff.get_employment_type_display }}</td>
+                        <td>
+                            {% if staff.employment_status == 'ACTIVE' %}<span class="badge bg-success">{{ staff.get_employment_status_display }}</span>
+                            {% else %}<span class="badge bg-secondary">{{ staff.get_employment_status_display }}</span>{% endif %}
+                        </td>
+                        <td>{{ staff.joining_date|date:"M d, Y" }}</td>
+                        <td>
+                            <div class="d-flex order-actions">
+                                <a href="{% url 'hr:staff_detail' staff.pk %}" class="ms-3" title="View"><i class="bx bxs-show"></i></a>
+                                <a href="{% url 'hr:staff_update' staff.pk %}" class="ms-3" title="Edit"><i class="bx bxs-edit"></i></a>
+                                <a href="{% url 'hr:staff_delete' staff.pk %}" class="ms-3 text-danger" title="Delete"><i class="bx bxs-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var table = $('#staffTable').DataTable({
+            lengthChange: false,
+            buttons: [ 'copy', 'excel', 'pdf', 'print']
+        });
+        table.buttons().container().appendTo( '#staffTable_wrapper .col-md-6:eq(0)' );
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static custom_filters %}
+
+{% block body_content %}
+<!--wrapper-->
+<div class="wrapper">
+    <!-- Sidebar -->
+    {% include 'admission/partials/sidebar.html' %}
+    <!--end sidebar wrapper -->
+    
+    <!--start header -->
+    {% include 'partials/header.html' %}
+    {% include "partials/alert.html" %}
+    <!--end header -->
+    
+    <!--start page wrapper -->
+    <div class="page-wrapper">
+        <div class="page-content">
+            {% block content %}
+            <!-- Main content will be inserted here -->
+            {% endblock %}
+        </div>
+    </div>
+    <!--end page wrapper -->
+</div>
+<!--end wrapper-->
+
+<!-- search modal -->
+{% include 'partials/search_modal.html' %}
+<!-- end search modal -->
+
+<!--start switcher-->
+{% include 'partials/theme_switcher.html' %}
+<!--end switcher-->
+{% endblock %}

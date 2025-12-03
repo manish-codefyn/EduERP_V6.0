@@ -1,0 +1,51 @@
+
+
+   <li>
+    <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon"><i class="bx bx-calendar-check"></i></div>
+        <div class="menu-title">Attendance</div>
+    </a>
+    <ul>
+        <!-- Dashboard -->
+        <li> <a href="{% url 'attendance:dashboard' %}"><i class="bx bx-right-arrow-alt"></i>Dashboard</a></li>
+        
+        <!-- Student Attendance -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class="bx bx-right-arrow-alt"></i>Student Attendance</a>
+            <ul>
+                <li> <a href="{% url 'attendance:student_list' %}"><i class="bx bx-right-arrow-alt"></i>View Records</a></li>
+                <li> <a href="{% url 'attendance:student_mark' %}"><i class="bx bx-right-arrow-alt"></i>Mark Attendance</a></li>
+                <li> <a href="{% url 'attendance:student_bulk_mark' %}"><i class="bx bx-right-arrow-alt"></i>Bulk Marking</a></li>
+                <li> <a href="{% url 'attendance:my_attendance' %}"><i class="bx bx-right-arrow-alt"></i>My Attendance</a></li>
+            </ul>
+        </li>
+        
+        <!-- Staff Attendance -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class="bx bx-right-arrow-alt"></i>Staff Attendance</a>
+            <ul>
+                <li> <a href="{% url 'attendance:staff_list' %}"><i class="bx bx-right-arrow-alt"></i>View Records</a></li>
+                <li> <a href="{% url 'attendance:staff_mark' %}"><i class="bx bx-right-arrow-alt"></i>Mark Attendance</a></li>
+            </ul>
+        </li>
+        
+        <!-- Leave Management -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class="bx bx-right-arrow-alt"></i>Leave Management</a>
+            <ul>
+                <li> <a href="{% url 'attendance:leave_list' %}"><i class="bx bx-right-arrow-alt"></i>All Applications</a></li>
+                <li> <a href="{% url 'attendance:leave_apply' %}"><i class="bx bx-right-arrow-alt"></i>Apply for Leave</a></li>
+                <li> <a href="{% url 'attendance:leave_review' 0 %}"><i class="bx bx-right-arrow-alt"></i>Review Leave</a></li>
+            </ul>
+        </li>
+        
+        <!-- Holidays -->
+        <li>
+            <a href="javascript:;" class="has-arrow"><i class="bx bx-right-arrow-alt"></i>Holidays</a>
+            <ul>
+                <li> <a href="{% url 'attendance:holiday_list' %}"><i class="bx bx-right-arrow-alt"></i>View Holidays</a></li>
+                <li> <a href="{% url 'attendance:holiday_add' %}"><i class="bx bx-right-arrow-alt"></i>Add Holiday</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
